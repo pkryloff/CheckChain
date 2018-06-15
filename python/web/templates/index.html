@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<title>CheckChain</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/html5shiv.js') }}"></script><![endif]-->
+	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie9.css') }}" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie8.css') }}" /><![endif]-->
+</head>
+
+<body>
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Header -->
+		<header id="header" class="alt">
+			<h1>CheckChain</h1>
+			<p>Новый подход к проверке аттестатов</p>
+			<p>by Krylov</p>
+		</header>
+
+		<!-- Nav -->
+		<nav id="nav">
+			<ul>
+				<li>
+					<a href="#intro" class="active">Introduction</a>
+				</li>
+				<li>
+					<a href="#first">Features</a>
+				</li>
+				<li>
+					<a href="#cta">Get Started</a>
+				</li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Introduction -->
+			<section id="intro" class="main">
+				<div class="spotlight">
+					<div class="content">
+						<header class="major">
+							<h2>Защитите ваш документ</h2>
+						</header>
+						<p>Современный рынок труда и образовательных услуг нуждается в возможности проверки подлинности документов. Разрабатываемая
+							система будет интересна ВУЗам, школам, а также компаниям, желающим проверять дипломы и аттестаты у сотрудников при
+							приеме на работу.</p>
+						<ul class="actions">
+							<li>
+								<a href="/generic" class="button">Подробнее</a>
+							</li>
+						</ul>
+					</div>
+					<span class="image">
+						<img src="{{ url_for('static', filename='images/eth.jpg') }}" alt="" />
+					</span>
+				</div>
+			</section>
+
+			<!-- First Section -->
+			<section id="first" class="main special">
+				<ul class="features">
+					<li>
+						<span class="icon major style1 fa-code"></span>
+						<h3>Open-source проект</h3>
+						<p>Ознакомиться с исходным кодом или присоединиться к разработке вы мы можете на
+							<a href=https://github.com/pkryloff>
+							гитхабе</a>
+						</p>
+					</li>
+					<li>
+						<span class="icon major style3 fa-copy"></span>
+						<h3>Удобство</h3>
+						<p>Прототипы аттестатов позволяют просто загружать документы.</p>
+					</li>
+					<li>
+						<span class="icon major style5 fa-diamond"></span>
+						<h3>Безопасность</h3>
+						<p>One-way хэширование гарантирует безопасность ваших данных.</p>
+					</li>
+				</ul>
+				<footer class="major">
+					<ul class="actions">
+						<li>
+							<a href="/generic" class="button">Подробнее</a>
+						</li>
+					</ul>
+				</footer>
+			</section>
+
+			<!-- Get Started -->
+			<section id="cta" class="main special">
+				<header class="major">
+					<h2>Приступить к работе</h2>
+					<p>Загрузите файл в формате .JSON и проверьте его подлинность.</p>
+				</header>
+				<footer class="major">
+					<ul class="actions">
+						{% if session['logged_in'] %}
+						<li>
+							<a class="button special" href="/upload">Загрузить аттестат</a>
+						</li>
+						<li>
+							<a class="button special" href="/logout">Выйти</a>
+						</li>
+						{% else %}
+						<li>
+							<a class="button special" href="/login">Войти</a>
+						</li>
+						{% endif %}
+						<li>
+							<a class="button special" href="/check">Проверить аттестат</a>
+						</li>
+						<li>
+							<a href="/generic" class="button">Подробнее</a>
+						</li>
+					</ul>
+				</footer>				
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<section>
+				<h2>Что такое CheckChain?</h2>
+				<p>Система верификации результатов оценки в публичном доступе с защитой от исправлений и подделок, упрощающая
+					взаимодействие студентов, учебных заведений и работодателей.</p>
+				<ul class="actions">
+					<li>
+						<a href="/generic" class="button">Подробнее</a>
+					</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Контакты</h2>
+				<dl class="alt">
+					<dt>Телефон</dt>
+					<dd>+7 (977) 782-5849</dd>
+					<dt>Email</dt>
+					<dd>kryloffpaul@gmail.com</a>
+					</dd>
+				</dl>
+				<ul class="icons">
+
+					<li>
+						<a href="https://vk.com/ya_pozer" class="icon fa-vk alt">
+							<span class="label">VK</span>
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/pkryloff" class="icon fa-github alt">
+							<span class="label">github</span>
+						</a>
+					</li>
+				</ul>
+			</section>
+			<p class="copyright">&copy; CheckChain 2018</p>
+		</footer>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+	<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+	<!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/respond.min.js') }}"></script><![endif]-->
+	<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
+</body>
+
+</html>
