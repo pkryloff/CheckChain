@@ -79,3 +79,12 @@ def check():
             else:
                 return render_template('upload.html', form=form, is_uploaded=True, result=False)
     return render_template('upload.html', form=form, is_uploaded=False)
+
+
+@app.route('/uploadV2', methods=['GET'])
+def uploadV2():
+    return render_template('uploadV2.html')
+
+@app.route('/uploadV3', methods=['GET'])
+def uploadV3():
+    return render_template('uploadV3.html')

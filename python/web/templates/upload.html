@@ -26,6 +26,10 @@
         </header>
 
         <!-- Main -->
+        
+
+        
+
         {% if is_uploaded %}
             {% if result %}
                 <p><font color='green'>Сертификат подтверждён!</font></p>
@@ -85,6 +89,12 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/sha1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/sha1-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/lib-typedarrays-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+
+
 	<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
@@ -92,7 +102,7 @@
 	<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
 	<!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/respond.min.js') }}"></script><![endif]-->
 	<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='assets/js/check.js') }}"></script>
 </body>
 
 </html>
