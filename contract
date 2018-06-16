@@ -1,18 +1,19 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.23;
 contract CheckChain {
     
-    function stringToBytes32(string memory source) returns (bytes32 result) {
+    function stringToBytes32(string memory source)
+    public pure returns (bytes32 result) {
         bytes memory tempEmptyStringTest = bytes(source);
         if (tempEmptyStringTest.length == 0) {
             return 0x0;
         }
-
         assembly {
             result := mload(add(source, 32))
         }
     }
     
-    function bytes32ToString(bytes32 x) constant returns (string) {
+    function bytes32ToString(bytes32 x)
+    public pure returns (string) {
         bytes memory bytesString = new bytes(32);
         uint charCount = 0;
         for (uint j = 0; j < 32; j++) {
@@ -37,18 +38,24 @@ contract CheckChain {
     bytes32 lastName;
     }
     
-    function CheckChain() public {
+    constructor() public {
         admin = msg.sender;
     }
 
-    function addCert (string _hash, string _firstName, string _lastName) public {
+    function addCert (string _hash, string _firstName, string _lastName)
+    public {
         require (msg.sender == admin);
-        
-        certificates [stringToBytes32(_hash)] = Student(stringToBytes32(_firstName), stringToBytes32(_lastName));
+
+        certificates [stringToBytes32(_hash)] =
+            Student(stringToBytes32(_firstName), stringToBytes32(_lastName));
     }
     
-    function checkCert (string _hash) public returns (bytes32, bytes32) {
-        return (certificates[stringToBytes32(_hash)].firstName, certificates[stringToBytes32(_hash)].lastName);
+    function checkCert (string _hash)
+    public view returns (string, string) {
+        return (
+                bytes32ToString(certificates[stringToBytes32(_hash)].firstName),
+                bytes32ToString(certificates[stringToBytes32(_hash)].lastName)
+            );
     }
     
 }
