@@ -3,13 +3,14 @@
 <html>
 
 <head>
-    <title>Загрузка документа</title>
+    <title>Загрузка аттестата</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
     <meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/html5shiv.js') }}"></script><![endif]-->
-	<link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
-	<!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie9.css') }}" /><![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie8.css') }}" /><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/html5shiv.js') }}"></script><![endif]-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <!--[if lte IE 9]><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie9.css') }}" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ie8.css') }}" /><![endif]-->
 </head>
 
 <body>
@@ -21,45 +22,40 @@
         <header id="header">
             <a href="/" class="button">
                 <h1>CheckChain</h1>
-            </a>    
-            <p>Новый подход к хранению аттестатов</p>
+            </a>
+            <p>Новый подход к проверке аттестатов</p>
         </header>
 
         <!-- Main -->
-        
-
-        
-
-        {% if is_uploaded %}
-            {% if result %}
-                <p><font color='green'>Сертификат подтверждён!</font></p>
-            {% else %}
-                <p><font color='red'>Сертификат не подтверждён!</font></p>
-            {% endif %} 
-        {% endif %}
-
-        <form method="POST" enctype=multipart/form-data>
-            {{ form.hidden_tag() }}
-                <span>Ваш JSON file</span>
-                <input type="file" name=file>
-                {% for error in form.errors.file %}
-                    <span style="color: red; font-size: 0.7rem;">{{ error }}</span>
-                {% endfor %}
-            <div>{{ form.submit(type='submit', value='Загрузить') }}</div>
-        </form> 
+        Выберите аттестат
+        <br>
+        <input type="file" id="f1">
+        <br>
+        <br>
+        <div class="6u 12u$(xsmall)">
+            <input type="text" name="firstname" id="fName" value="" placeholder="Введите имя владельца аттестата">
+            <br>
+            <input type="text" name="lastname" id="lName" value="" placeholder="Введите фамилию владельца аттестата">
+        </div>
+        <br>
+        <input type="button" id="btn" value="Загрузить аттестат" />
 
         <!-- Footer -->
+        <br>
+        <br>
+        <br>
+        <br>
         <footer id="footer">
             <section>
-				<h2>Что такое CheckChain?</h2>
-				<p>Система верификации результатов оценки в публичном доступе с защитой от исправлений и подделок, упрощающая
-					взаимодействие студентов, учебных заведений и работодателей.</p>
-				<ul class="actions">
-					<li>
-						<a href="/generic" class="button">Подробнее</a>
-					</li>
-				</ul>
-			</section>
+                <h2>Что такое CheckChain?</h2>
+                <p>Система верификации результатов оценки в публичном доступе с защитой от исправлений и подделок, упрощающая
+                    взаимодействие студентов, учебных заведений и работодателей.</p>
+                <ul class="actions">
+                    <li>
+                        <a href="/generic" class="button">Подробнее</a>
+                    </li>
+                </ul>
+            </section>
             <section>
                 <h2>Контакты</h2>
                 <dl class="alt">
@@ -95,14 +91,62 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
 
-	<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
-	<!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/respond.min.js') }}"></script><![endif]-->
-	<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='assets/js/check.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/skel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <!--[if lte IE 8]><script src="{{ url_for('static', filename='assets/js/ie/respond.min.js') }}"></script><![endif]-->
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                var reader = new FileReader(); //define a Reader
+                var file = $("#f1")[0].files[0]; //get the File object 
+                if (!file) {
+                    alert("Аттестат не выбран");
+                    return;
+                } //check if user selected a file
+                if (!document.getElementById("fName").value) {
+                    alert("Не введено имя");
+                    return;
+                }
+                if (!document.getElementById("lName").value) {
+                    alert("Не введена фамилия");
+                    return;
+                }
+
+                reader.onload = function (f) {
+                    var file_result = this.result; // this == reader, get the loaded file "result"
+                    var file_wordArr = CryptoJS.lib.WordArray.create(file_result); //convert blob to WordArray
+                    var sha1_hash = CryptoJS.SHA1(file_wordArr); //calculate SHA1 hash
+                    if (typeof web3 === 'undefined') {
+                        alert("Включите Metamask")
+                    }
+                    else {
+                        var checkchainContract = web3.eth.contract([{ "constant": false, "inputs": [{ "name": "_hash", "type": "string" }, { "name": "_firstName", "type": "string" }, { "name": "_lastName", "type": "string" }], "name": "addCert", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_hash", "type": "string" }], "name": "checkCert", "outputs": [{ "name": "", "type": "string" }, { "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [{ "name": "x", "type": "bytes32" }], "name": "bytes32ToString", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "pure", "type": "function" }, { "constant": true, "inputs": [{ "name": "source", "type": "string" }], "name": "stringToBytes32", "outputs": [{ "name": "result", "type": "bytes32" }], "payable": false, "stateMutability": "pure", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }]).at("0xa9ab1fc68dc9ec26d8c2a2c01f780a71919a111b");
+                        checkchainContract.addCert(sha1_hash.toString(), document.getElementById("fName").value, document.getElementById("lName").value, (e, myTxHash) => {
+
+                            web3.eth.filter('latest', function (error, result) {
+                                web3.eth.getBlock(result, (e, b) => {
+                                    var t = b.transactions
+                                    for (var i = 0; i < t.length; i++)
+                                        if (t[i] == myTxHash) {
+                                            alert("Аттестат добавлен")
+                                        }
+                                })
+                            })
+                        })
+
+
+                    }
+                };
+                reader.readAsArrayBuffer(file); //read file as ArrayBuffer
+
+            });
+        });
+    </script>
+
 </body>
 
 </html>

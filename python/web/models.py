@@ -19,21 +19,3 @@ class User(db.Model):
     @staticmethod
     def get_all():
         return User.query.all()
-
-
-class HashRep(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    hash = db.Column(db.String(1024))
-
-    def __init__(self, hash):
-        self.hash = hash
-
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-        return self.id
-
-    # Получает список всех хэшей сертификатов 
-    @staticmethod
-    def get_all():
-        return HashRep.query.all()

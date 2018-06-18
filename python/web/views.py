@@ -1,7 +1,7 @@
 from flask import session, request, render_template, redirect
 from web import app,  ALLOWED_EXTENSIONS
-from web.models import User, HashRep
-from web.forms import RegForm, LoginForm, CertForm
+from web.models import User
+from web.forms import RegForm, LoginForm
 from hashlib import sha256
 import json
 from pprint import pprint
@@ -53,38 +53,13 @@ def logout():
     return redirect('/')
 
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
-    form = CertForm()
-    if form.validate_on_submit() and form.submit.data:
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            hash = sha256(str(file.read()).encode()).hexdigest()
-            hash_rep = HashRep(hash)
-            hash_rep.save()
-            return redirect('/')
-    return render_template('upload.html', form=form, is_uploaded=False)
-
-
-@app.route('/check', methods=['GET', 'POST'])
+@app.route('/check', methods=['GET'])
 def check():
-    form = CertForm()
-    if form.validate_on_submit() and form.submit.data:
-        file = request.files['file']
-        if file and allowed_file(file.filename):
-            hash = sha256(str(file.read()).encode()).hexdigest()
-            rep = HashRep.query.filter(HashRep.hash == hash).first()
-            if rep:
-                return render_template('upload.html', form=form, is_uploaded=True, result=True)
-            else:
-                return render_template('upload.html', form=form, is_uploaded=True, result=False)
-    return render_template('upload.html', form=form, is_uploaded=False)
+    return render_template('check.html')
 
-
-@app.route('/uploadV2', methods=['GET'])
-def uploadV2():
-    return render_template('uploadV2.html')
-
-@app.route('/uploadV3', methods=['GET'])
-def uploadV3():
-    return render_template('uploadV3.html')
+@app.route('/upload', methods=['GET'])
+def upload():
+    if session['logged_in']:
+        return render_template('upload.html')
+    else:
+        return redirect('/')

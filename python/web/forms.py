@@ -23,8 +23,3 @@ class RegForm(FlaskForm):
 class LoginForm(FlaskForm):
     login = StringField(label='login', validators=[DataRequired(message='Это обязательное поле.')])
     password = StringField(label='password', validators=[DataRequired(message='Это обязательное поле.')])
-
-
-class CertForm(FlaskForm):
-    file = FileField(label='cert', validators=[DataRequired(message='Это обязательное поле.')])
-    submit = SubmitField('Загрузить')
